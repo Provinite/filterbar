@@ -2,9 +2,6 @@
 import { FilterBarManager } from "./FilterBarManager";
 import { createNameFilterConfiguration } from "./FilterConfigurations";
 import { SimpleModelFieldFilterConfiguration } from "./SimpleModelFieldFilterConfiguration";
-// @ts-ignore
-require("@babel/polyfill");
-
 describe("Filter Bar Manager", () => {
   describe("name filter", () => {
     /**
