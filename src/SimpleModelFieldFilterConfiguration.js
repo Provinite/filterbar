@@ -3,10 +3,6 @@ import { FilterBarManager } from "./FilterBarManager";
 import { ManagerAwareFilterConfiguration } from "./ManagerAwareFilterConfiguration";
 
 export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfiguration {
-  /**
-   * @type {FilterBarManager}
-   */
-  manager;
 
   /**
    * Create a new simple model field filter configuration. This configuration is

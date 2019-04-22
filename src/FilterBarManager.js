@@ -49,7 +49,7 @@ export class FilterBarManager {
    *  configuration
    */
   addChip(chip, filterConfiguration) {
-    this.chips.push({ ...chip, filterConfiguration });
+    this.chips = [...this.chips, { ...chip, filterConfiguration }];
   }
 
   /**
@@ -87,7 +87,7 @@ export class FilterBarManager {
 
   /**
    * Generate the query object for the currently applied filters.
-   * @param {*} pinTypeId - The pintype ID to use for pin type specific queries
+   * @param {*} [pinTypeId] - The pintype ID to use for pin type specific queries
    *  (if any)
    */
   getQuery(pinTypeId) {
@@ -131,6 +131,7 @@ export class FilterBarManager {
   loadFromQuery(query) {
     const { pin_fields, pin_type, ...modelFieldFilters } = query;
     this.modelFieldFilters = modelFieldFilters;
+    this.chips = [];
     this.pinFieldFilters = {};
     this.pinTypeSpecificFilters = {};
     if (pin_fields) {
