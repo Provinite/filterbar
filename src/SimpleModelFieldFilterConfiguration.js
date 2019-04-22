@@ -1,9 +1,7 @@
-//@ts-check
 import { FilterBarManager } from "./FilterBarManager";
 import { ManagerAwareFilterConfiguration } from "./ManagerAwareFilterConfiguration";
 
 export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfiguration {
-
   /**
    * Create a new simple model field filter configuration. This configuration is
    * appropriate for handling filters like task.subject and asset.name.
@@ -19,17 +17,19 @@ export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfi
    * @param {(value) => ?} [config.filterValueToEnumValue] - Callback used to convert a filtered value back into an enum value.
    * @param {(value) => ?} [config.enumValueToChipText] - Callback used to convert an enum value to chip text.
    */
-  constructor(manager,
+  constructor(
+    manager,
     {
-    displayName,
-    queryField,
-    chipName,
-    inputType,
-    getEnumValues,
-    enumValueToFilterValue,
-    filterValueToEnumValue,
-    enumValueToChipText,
-  }) {
+      displayName,
+      queryField,
+      chipName,
+      inputType,
+      getEnumValues,
+      enumValueToFilterValue,
+      filterValueToEnumValue,
+      enumValueToChipText
+    }
+  ) {
     super(manager);
     this.displayName = displayName;
     this.queryField = queryField;
@@ -37,9 +37,14 @@ export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfi
     if (getEnumValues) {
       this.getEnumValues = getEnumValues;
     }
-    if (enumValueToFilterValue) this.enumValueToFilterValue = enumValueToFilterValue;
-    if (filterValueToEnumValue) this.filterValueToEnumValue = enumValueToFilterValue;
+    // replace class implementations with those provided during config
+    // for case-by-case enum handling
+    if (enumValueToFilterValue)
+      this.enumValueToFilterValue = enumValueToFilterValue;
+    if (filterValueToEnumValue)
+      this.filterValueToEnumValue = enumValueToFilterValue;
     if (enumValueToChipText) this.enumValueToChipText = enumValueToChipText;
+
     this.inputConfiguration = {
       type: inputType,
       getEnumValues: this.getEnumValues.bind(this)
@@ -48,11 +53,17 @@ export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfi
 
   // FilterConfiguration overrides
   getChip(value) {
-    return { left: this.chipName, right: this.isEnum ? this.enumValueToChipText(value) : value };
+    return {
+      left: this.chipName,
+      right: this.isEnum ? this.enumValueToChipText(value) : value
+    };
   }
 
   onApply(value) {
-    this.manager.addModelFieldFilter(this.queryField, this.isEnum ? this.enumValueToFilterValue(value) : value);
+    this.manager.addModelFieldFilter(
+      this.queryField,
+      this.isEnum ? this.enumValueToFilterValue(value) : value
+    );
   }
 
   onRemove() {
@@ -72,7 +83,7 @@ export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfi
   // Special enum logic
   /**
    * Convert a filter value applied by onApply to the associated enum value.
-   * @param {*} filterValue 
+   * @param {*} filterValue
    */
   filterValueToEnumValue(filterValue) {
     return filterValue;
@@ -81,7 +92,7 @@ export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfi
   /**
    * Convert an enum value returned from getEnumValues into a filter value (string).
    * @param {*} enumValue
-   * @return {string} The enum value's query representation 
+   * @return {string} The enum value's query representation
    */
   enumValueToFilterValue(enumValue) {
     return enumValue;
@@ -89,7 +100,7 @@ export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfi
 
   /**
    * Convert an enum value returned from getEnumValues into chip text (string).
-   * @param {*} enumValue 
+   * @param {*} enumValue
    * @return {string} The enum value's chip representation
    */
   enumValueToChipText(enumValue) {
@@ -97,7 +108,9 @@ export class SimpleModelFieldFilterConfiguration extends ManagerAwareFilterConfi
   }
 
   getEnumValues() {
-    throw new Error("getEnumValues must be implemented or provided in constructor.");
+    throw new Error(
+      "getEnumValues must be implemented or provided in constructor."
+    );
   }
 
   /**

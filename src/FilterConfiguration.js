@@ -1,19 +1,23 @@
-//@ts-check
-
 /**
  * @typedef InputConfiguration
  * @type {object}
- * @property {string} type - The input type
+ * @property {"text"|"enum"|"numeric"} type - The input type
+ * @property {() => EnumOption[]} getEnumValues - Required for enum types
  */
 
+/**
+ * Base class for filter configurations. This API is all that the FilterBar
+ * component should depend on.
+ */
 export class FilterConfiguration {
   /**
-   * @type {string}
+   * @type {string} - The option text to display for this configuration
    */
   displayName;
 
   /**
-   * @type {InputConfiguration}
+   * @type {InputConfiguration} - Input configuration options for this
+   *  configuration
    */
   inputConfiguration;
 
@@ -21,31 +25,5 @@ export class FilterConfiguration {
     if (this.constructor === FilterConfiguration) {
       throw new Error("Cannot construct virtual class: FilterConfiguration");
     }
-  }
-
-  /**
-   * @method getChip
-   * @param {any} value - The value to get a chip for.
-   * @returns {{left: string, right: string}} The chip.
-   */
-  getChip(value) {
-    throw new Error("Unimplemented method: getChip");
-  }
-
-  /**
-   * @function onApply
-   * Behavior when applying a filter.
-   * @param {?} inputValue - The value to apply (from user input, or getInputValue).
-   */
-  onApply(inputValue) {
-    throw new Error("Unimplemented method: onApply");
-  }
-
-  /**
-   * @function onRemove
-   * Behavior when removing a filter.
-   */
-  onRemove() {
-    throw new Error("Unimplemented method: onRemove");
   }
 }

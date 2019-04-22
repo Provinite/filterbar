@@ -52,6 +52,8 @@ describe("Filter Bar Manager", () => {
       const newManager = new FilterBarManager();
       const newNameFilter = createNameFilterConfiguration(newManager);
       newManager.loadFromQuery(query);
+      // TODO: this is a weird way to assert that a particular filter is
+      // active. . .
       expect(manager.chips).toContainEqual({
         left: "Name",
         right: "some value",

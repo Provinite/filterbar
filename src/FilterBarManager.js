@@ -1,12 +1,4 @@
-//@ts-check
 import { ManagerAwareFilterConfiguration } from "./ManagerAwareFilterConfiguration";
-
-/**
- * @typedef Chip
- * @property {string} left
- * @property {string} right
- * @property {ManagerAwareFilterConfiguration} filterConfiguration
- */
 
 export class FilterBarManager {
   /**
@@ -27,7 +19,7 @@ export class FilterBarManager {
   pinFieldFilters = {};
   /**
    * Array representing the current chips for the filter bar.
-   * @type {Chip[]}
+   * @type {import("./typedefs").Chip[]}
    */
   chips = [];
   /**

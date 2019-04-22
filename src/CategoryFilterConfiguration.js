@@ -1,4 +1,3 @@
-//@ts-check
 import { SimpleModelFieldFilterConfiguration } from "./SimpleModelFieldFilterConfiguration";
 
 export class CategoryFilterConfiguration extends SimpleModelFieldFilterConfiguration {
@@ -7,7 +6,7 @@ export class CategoryFilterConfiguration extends SimpleModelFieldFilterConfigura
       displayName: "Category",
       queryField: "pin_type",
       chipName: "Category",
-      inputType: "enum",
+      inputType: "enum"
     });
     this.building = building;
   }

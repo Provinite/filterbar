@@ -1,4 +1,3 @@
-//@ts-check
 import { SimpleModelFieldFilterConfiguration } from "./SimpleModelFieldFilterConfiguration";
 import { FilterBarManager } from "./FilterBarManager";
 import { CategoryFilterConfiguration } from "./CategoryFilterConfiguration";
