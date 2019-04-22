@@ -1,6 +1,13 @@
 import { FilterConfiguration } from "./FilterConfiguration";
+import { ManagerAwareFilterConfiguration } from "./ManagerAwareFilterConfiguration";
+import { FilterBarManager } from "./FilterBarManager";
+import { CategoryFilterConfiguration } from "./CategoryFilterConfiguration";
 
-export class PinTypeSpecificFilterConfiguration extends FilterConfiguration {
+/**
+ * @class A filter configuration that is dependent upon an associated pin type
+ * filter configuration.
+ */
+export class PinTypeSpecificFilterConfiguration extends ManagerAwareFilterConfiguration {
   /**
    * @member {FilterConfiguration}
    * The filter configuration for the associated pin type filter. Required to
@@ -20,7 +27,16 @@ export class PinTypeSpecificFilterConfiguration extends FilterConfiguration {
    */
   enumValueToFilterValue;
 
+  /**
+   * 
+   * @param {FilterBarManager} manager 
+   * @param {CategoryFilterConfiguration} pinTypeConfiguration - The associated pin type
+   *  filter configuration for this filter. Must implement the getCurrentPinTypeId
+   *  method.
+   * @param {Object} config
+   */
   constructor(
+    manager,
     pinTypeConfiguration,
     {
       displayName,
@@ -37,7 +53,7 @@ export class PinTypeSpecificFilterConfiguration extends FilterConfiguration {
         "A pin type filter configuration is required to instantiate dependent filters."
       );
     }
-    super();
+    super(manager);
     this.building = building;
     this.displayName = displayName;
     this.chipName = chipName;
@@ -55,7 +71,7 @@ export class PinTypeSpecificFilterConfiguration extends FilterConfiguration {
   onApply(value) {
     const isEnum = this.inputConfiguration.type === "enum";
     this.manager.addPinTypeSpecificFilter(
-      this.pinField,
+      this.pinField, // ?
       isEnum ? this.enumValueToFilterValue(value) : value
     );
   }
