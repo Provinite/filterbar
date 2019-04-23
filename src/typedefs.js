@@ -4,7 +4,7 @@ import { ManagerAwareFilterConfiguration } from "./ManagerAwareFilterConfigurati
  * @typedef Chip
  * @property {string} left
  * @property {string} right
- * @property {ManagerAwareFilterConfiguration} filterConfiguration
+ * @property {FilterConfiguration} filterConfiguration
  */
 /**
  * @typedef EnumOption
